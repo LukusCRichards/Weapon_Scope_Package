@@ -30,3 +30,7 @@ These are the components that will be needed to make this package work and other
 
 ## How this can be edited
 
+
+
+## Things to note
+
