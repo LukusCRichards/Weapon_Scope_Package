@@ -8,13 +8,13 @@ These are the components that will be needed to make this package work and other
 
 ### Important
 
-> 2 Camera Components
-> 1 GameObject with the Weapon you want to be able to zoom with (E.G. A sniper)
-> 1 Script
+2 Camera Components
+1 GameObject with the Weapon you want to be able to zoom with (E.G. A sniper)
+1 Script
 
 ### Optional (To Make it Look Better)
 
-> Animator
+1 Animator Component
 
 ## Writing the Script
 
