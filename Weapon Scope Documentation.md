@@ -31,11 +31,11 @@ After opening Unity, create a C# script and name it Scope (or another name you f
 
     private bool isScoped = false;
 
-Now create 2 void methods called **Scope** and **UnScope**, as well as an **IEnumerator** called **OnScope**.
+Now create 2 void methods called **Scoping** and **UnScope**, as well as an **IEnumerator** called **OnScope** and put the Scoping method in the **Update** method.
 
-### Scope Method
+### Scoping Method
 
-In the **Scope** method write the following:
+The Scoping method is what will be used to make the aiming animations play back and forth, as well as zooming in and out, by controlling the other two methods that are responsible for this. In the Scoping method write the following:
 
     void Scoping()
     {
@@ -61,7 +61,28 @@ If you notice at the start of the **GetButtonDown** if statement, there's an int
 
 In the referenced **scopeAnimator** variable, the isScoped bool is equal to **true**, because the code goes from **top to bottom** and at the very top of the code, the isScoped has a value of **false** and right before the code gets to the scopeAnimator variable, the value of isScoped is changed to **true**.
 
-The Coroutine for the OnScope Method is what is responsible for the delay before the scope's UI overley is displayed, but the animation is not delayed as it starts imediately before the Coroutine is called.
+### OnScope
+
+The Coroutine for the **OnScope** method is what is responsible for the delay before the scope's UI overley is displayed, but the animation is not delayed as it starts imediately before the Coroutine is called in the if statement.
+
+In the Ons=Scope method, the following should be included:
+
+    IEnumerator OnScope()
+    {
+        yield return new WaitForSeconds(scopeOverleyDelay);
+
+        scopeOverlay.SetActive(true);
+        weaponCamera.SetActive(false);
+
+        normalFOV = mainCamera.fieldOfView;
+        mainCamera.fieldOfView = scopedFOV;
+    }
+
+
+
+### Unscope
+
+The UnScope method is what puts everything back to the way everything was before you started zooming in through the scope.
 
 ## Putting Everything Together
 
