@@ -65,11 +65,11 @@ In the referenced **scopeAnimator** variable, the isScoped bool is equal to **tr
 
 The Coroutine for the **OnScope** method is what is responsible for the delay before the scope's UI overley is displayed, but the animation is not delayed as it starts imediately before the Coroutine is called in the if statement.
 
-In the Ons=Scope method, the following should be included:
+In the OnScope method, the following should be included:
 
     IEnumerator OnScope()
     {
-        yield return new WaitForSeconds(scopeOverleyDelay);
+        yield return new WaitForSeconds(scopeOverlayDelay);
 
         scopeOverlay.SetActive(true);
         weaponCamera.SetActive(false);
@@ -78,13 +78,34 @@ In the Ons=Scope method, the following should be included:
         mainCamera.fieldOfView = scopedFOV;
     }
 
+The **scopeOverlay** GameObject variable is what will contain the image GameObject in the UI Canvas to give it that crosshair look and the **weaponCamera** is what will be used to change the field of view of the camera to make it zoom and turn of the main camera so it only uses the weapon camera. When the scopeOverlay GameObject is set to true, the UI crosshair image will be shown and when it is set to false, it gets turned off.
 
+The private **normalFOV** float variable is what sets the mainCamera's field of vision back to it's original position before you zoomed in and the **scopedFOV** float variable is what sets the zoom distance of the weaponCamera.
+
+The **scopeOverlayDelay** float variable is what will change the delay between when the scopeOverley GameObject becomes visible and should be editable thourgh the inspector as the animations can be different depending on the length of your animations.
+
+Do not worry about the weapons still being visible while zooming in, the 2 camera GameObjects can take care of it on their own.
 
 ### Unscope
 
-The UnScope method is what puts everything back to the way everything was before you started zooming in through the scope.
+The UnScope method is what puts everything back to the way everything was before you started zooming in through the scope by turning off the crosshair UI Image and what returns the camera's zoom distance back to it's original position through the normalFOV float vairable.
+
+Make sure the following is included in the UnScope method.
+
+    void UnScope()
+    {
+        scopeOverlay.SetActive(false);
+        weaponCamera.SetActive(true);
+
+        mainCamera.fieldOfView = normalFOV;
+    }
+
+Remember that the GameObjects being set to true or false. If it's set to true, it's visible and if it's set to false, it's invisible. As well as the normalFOV float variable, as this will move the main camera's field of view back and forth when you zoom out.
 
 ## Putting Everything Together
+
+If you've written all the code correctly, you shouldn't encounter any errors after doing these next steps.
+
 
 
 ## Things to note
