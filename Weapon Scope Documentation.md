@@ -55,9 +55,13 @@ In the **Scope** method write the following:
         }
     }
 
+The **"Fire2"** in the parentheses is the right mouse button, but you can change this by going to **Edit > Project Settings > Input Settings**.
+
 If you notice at the start of the **GetButtonDown** if statement, there's an interesting bool value: **isScoped = !isScoped;**. The exclamation mark (**!**) is what is used to change the value of it without having to write true or false. In other words, if you use it, you're saying in the code *isScoped equals the opposite of it's current bool value*. If you use it in a if statement such as **if(!isScoped)** you're saying the same thing, but in shorter detail.
 
 In the referenced **scopeAnimator** variable, the isScoped bool is equal to **true**, because the code goes from **top to bottom** and at the very top of the code, the isScoped has a value of **false** and right before the code gets to the scopeAnimator variable, the value of isScoped is changed to **true**.
+
+The Coroutine for the OnScope Method is what is responsible for the delay before the scope's UI overley is displayed, but the animation is not delayed as it starts imediately before the Coroutine is called.
 
 ## Putting Everything Together
 
