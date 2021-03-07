@@ -166,3 +166,4 @@ If you've done everything correctly, you should not encounter any problems. If y
 
 This script does not comtain any movement aspects, but it should work fine on other game objects that do contain movement in it. Whether it's the camera or the character itself.
 
+If any GameObject other than the Weapons Holder is containg the Weapons layer, they too will not be rendered when zoomed in. To fix this, simply change their layers. 
