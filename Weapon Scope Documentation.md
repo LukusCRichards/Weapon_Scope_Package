@@ -118,9 +118,17 @@ Now parent the Weapon Holder to the Main Camera
 
 ### Animation
 
-Select the Weapon Holder GameObject, go to the Animation tab and click on create. When a new window appears, create a new folder in the Assets folder called **Animations** and inside that folder make another folder called **Sniper** to keep things organised. Then name your animation to **Idle** and save it.
+Select the Weapon Holder GameObject, go to the Animation tab and click on create. When a new window appears, create a new folder in the Assets folder called **Animations** and inside that folder make another folder called **Sniper** to keep things organised. Then name your animation to **Idle** and save it. With the Idle animation selected, click on a frame that's a few seconds off from the first frame with the record button selected and move the **Weapon Holder GameObject** down a bit. Then copy the first frame and move it a few seconds after the Keyframe you just made so it moves back to the exact location.
 
+If you want to smooth the movements a bit, highlight all of the frames, richt-click and select **Flat**. Now you should see the movements of the sniper look smoother. You can check by clickin on the **Curves** tab at the bottom right corner on the left of the frames.
 
+Then click on the Idle animation tab and click on **Create New Clip** and name it as **Scope**. Now all you need to do is move the Weapon Holder GameObject to a position so it looks like the player is looking through the scope using the very first frame of the scope animation. Don't worry about errors in the animation, the transistions will take care of themselves.
+
+If you're changing the position through the Transform component's axis values, you can hold Alt and drag the values so it moves more slowly and allows you to move them closer to the position you desire.
+
+When all this is done, the next thing to do is to go to the scope folder you made in the animations folder and select the Animation controller that has the same name as the GameObject you animated. When it is selected click on the Animator tab and you should see the animations you made. If you don't see the Animator tab to go **Windows > Animator** and it should appear.
+
+In the Animator tab, richt-click on the Idle animation and select **Make Transition** and link it to the **Scope** animation, and do the same thing the other way around.
 
 ## Things to note
 
