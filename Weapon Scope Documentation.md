@@ -10,6 +10,8 @@ These are the components that will be needed to make this package work:
 
 1 GameObject with the Weapon you want to be able to zoom with (E.G. A sniper)
 
+1 UI Canvas with a GameObject containing an Image component
+
 1 Script
 
 1 Animator Component (for aiming amination)
@@ -102,7 +104,7 @@ Make sure the following is included in the UnScope method.
 
 Remember that the GameObjects being set to true or false. If it's set to true, it's visible and if it's set to false, it's invisible. As well as the **normalFOV** float variable, as this will move the main camera's field of view back and forth when you press the right mouse button to zoom out.
 
-## Putting Everything Together
+## Readying the Other Assets for the Script
 
 ### Weapon Holder (GameObject)
 
@@ -114,7 +116,7 @@ Now parent your sniper to the **Weapon Holder GameObject** and then parent the W
 
 If you decide to move it close to the screen and you see it getting cut off for being too close to the camera, change the **Clipping Planes** value so it no longer looks cut off. The lower the number, the closer the distance for the sniper to get cut off by the camera. The bigger the number, the longer the distance for the sniper to get cut off.
 
-Now parent the Weapon Holder to the Main Camera
+Now parent the Weapon Holder to the Main Camera and whenever the character moves, the sniper will remain in view.
 
 ### Animation
 
@@ -134,8 +136,33 @@ There will be a problem with this when you change the bool while the game is pla
 
 If you want to change the speed of the transitions, select the transition arrows, go to settings and change the transition duration values. The lower the number, the quicker the transition and the bigger the number, the longer the transition.
 
+### Sniper Crosshair
 
+In the hiererchy, right-click, go to **UI**, select **Image** and now a new Canvas should appear with a GameObject called Image. The Image GameObject is what you will use for the sniper crosshairs.
+
+If you don't have a sniper crosshairs image, you can quickly make one by going to Photopea. Make sure that the area that you want to be visible through the screen while scoping is transparent. If you do not, you won't be able to see anything when zoomed in. After you've made it, export the image as a PNG as that format is what supports transparent images.
+
+Then create a folder called **Images** and create another inside it called **Sniper** to organise it. Now import the crosshair Image into that folder and select it and change the **Texture Type** to **Sprite (2D & UI)** so it can be used in the Image components. Then go to the Image GameObject in the Canvas and change the source image to the crosshair image. Now the white box Image that used to be there should now look like the crosshair.
+
+If the Image looks out of shape, go to the Canvas and change the **UI Scale Mode** to **Scale With Screen Size** and set the **Match** value from Height (0) to Height (1) so everytime the window gets taller, it scales with it. To make it easier to know where the sniper crosshair is, change the Canvas image to **Scope Overley**.
+
+Make sure that the Scope Overlay GameObject is turned off so it is not visible while you continue to do the other bits.
+
+### Weapon Camera
+
+In the hierarchy, select the Main Camera GameObject and create a new Camera so it is parented to the normal camera and follows everything the Main Camera does. Make sure you reset the transform so there is not offset and create a new layer and call it **Weapons**. Then select the Weapon Holder GameObject and change the layer to Weapon and make sure it changes the layer of its children as well.
+
+Now change the name of the new Camera you created to **Weapon Camera**, select **Culling Mask** and make sure that the only layer it is set to is the Weapons layer and change **Clear Flags** to **Depth Only**, set the **Depth** to 1 so it is set above Main Camera and change the Near value of the Clipping Plane to 0.1. In the Main Camera, go to the Culling Mask and turn off the Weapons layer so it no longer shows anything containing the Weapons layer and overlays the Weapon Camera with the Main Camera.
+
+Now whenever you get close to an obstacle, it will not longer clip through it because the main camera does not render the GameObjects with the Weapons layer and the Weapon Camera is only rendering the GameObjects with the Weapons layer.
+
+## Combining Everything
+
+Once you've done everything, all you need to do is to put everything to its corresponding slots. The Weapon Camera and Main Camera goes in their corresponding slots, along with the Scope Overlay GameObject. The Weapon Holder Animator Controller goes into the Scope Animator slot.
+
+If you've done everything correctly, you should not encounter any problems. If you feel like the scope Overlay is taking too long to appear or appearing too quickly, simply change the value of the Scope Overlay Delay.
 
 ## Things to note
 
 This script does not comtain any movement aspects, but it should work fine on other game objects that do contain movement in it. Whether it's the camera or the character itself.
+
