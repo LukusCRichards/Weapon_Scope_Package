@@ -128,7 +128,13 @@ If you're changing the position through the Transform component's axis values, y
 
 When all this is done, the next thing to do is to go to the scope folder you made in the animations folder and select the Animation controller that has the same name as the GameObject you animated. When it is selected click on the Animator tab and you should see the animations you made. If you don't see the Animator tab to go **Windows > Animator** and it should appear.
 
-In the Animator tab, richt-click on the Idle animation and select **Make Transition** and link it to the **Scope** animation, and do the same thing the other way around.
+In the Animator tab, richt-click on the Idle animation and select **Make Transition** and link it to the **Scope** animation, and do the same thing the other way around. Now select **Parameters** and set a bool parameter called **Scoped**, then click on the arrow from the Idle animation to the Scope animation to create a condition and set the Scoped bool to **true**. Do the same thing for the Scope, but set the Scoped bool to **false**.
+
+There will be a problem with this when you change the bool while the game is playing because when the Scoped bool is set to true, **the transition only starts when the Idle animation has finished playing**. This is what is called **Exit Time**. To turn this of, select the transition arrows between the animations and untick Exit Time. Now the animation should start playing as soon as the Scoped bool is set to true.
+
+If you want to change the speed of the transitions, select the transition arrows, go to settings and change the transition duration values. The lower the number, the quicker the transition and the bigger the number, the longer the transition.
+
+
 
 ## Things to note
 
