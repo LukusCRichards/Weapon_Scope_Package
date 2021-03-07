@@ -100,11 +100,25 @@ Make sure the following is included in the UnScope method.
         mainCamera.fieldOfView = normalFOV;
     }
 
-Remember that the GameObjects being set to true or false. If it's set to true, it's visible and if it's set to false, it's invisible. As well as the normalFOV float variable, as this will move the main camera's field of view back and forth when you zoom out.
+Remember that the GameObjects being set to true or false. If it's set to true, it's visible and if it's set to false, it's invisible. As well as the **normalFOV** float variable, as this will move the main camera's field of view back and forth when you press the right mouse button to zoom out.
 
 ## Putting Everything Together
 
+### Weapon Holder (GameObject)
+
 If you've written all the code correctly, you shouldn't encounter any errors after doing these next steps.
+
+In the hierarchy, create an empty GameObject and call it **Weapon Holder**, then **import** the **WeaponScope script** component into it as this is what will be used for the weapon animations and the zoom in functionality.
+
+Now parent your sniper to the **Weapon Holder GameObject** and then parent the Weapon Holder GameObject to the **Main Camera**. Make sure the sniper is **centered** to the Weapon Holder's axis by **right clicking** on the sniper's **transform Component** and selecting **reset**, and **only** move the Weapon Holder GameObject to move the sniper to a view point you think is appropriate.
+
+If you decide to move it close to the screen and you see it getting cut off for being too close to the camera, change the **Clipping Planes** value so it no longer looks cut off. The lower the number, the closer the distance for the sniper to get cut off by the camera. The bigger the number, the longer the distance for the sniper to get cut off.
+
+Now parent the Weapon Holder to the Main Camera
+
+### Animation
+
+Select the Weapon Holder GameObject, go to the Animation tab and click on create. When a new window appears, create a new folder in the Assets folder called **Animations** and inside that folder make another folder called **Sniper** to keep things organised. Then name your animation to **Idle** and save it.
 
 
 
