@@ -12,15 +12,15 @@ These are the components that will be needed to make this package work:
 
 1 UI Canvas with a GameObject containing an Image component
 
-1 Script
+2 Scripts
 
 1 Animator Component (for aiming amination)
 
 ## Writing the Script
 
-After opening Unity, create a C# script and name it Scope (or another name you find appropriate). Next open the file, **delete the Start method** and write 8 variables (6 need to be public and 2 need to be private), and write the following:
+### Weapon Scope
 
-    public Animator scopeAnimator;
+After opening Unity, create a C# script and name it Weapon Scope (or another name you find appropriate). Next open the file, **delete the Start method** and write 8 variables (6 need to be public and 2 need to be private), and write the following:
 
     public float scopeOverleyDelay = .15f;
 
@@ -35,16 +35,27 @@ After opening Unity, create a C# script and name it Scope (or another name you f
 
 Now create 2 void methods called **Scoping** and **UnScope**, as well as an **IEnumerator** called **OnScope** and put the Scoping method in the **Update** method.
 
-### Scoping Method
+#### Scoping Method
 
-The Scoping method is what will be used to make the aiming animations play back and forth, as well as zooming in and out, by controlling the other two methods that are responsible for this. In the Scoping method write the following:
+The Scoping method is what will be used to make the aiming animations play back and forth, as well as zooming in and out, by controlling the other two methods that are responsible for this. Now create a private script reference to the **AnimationController script** variable and on top of the Update method, create an Awake method and write the following which should contain these new variables when you're finished:
+
+    AnimationController animator;
+    
+    void Awake()
+    {
+        animator = GetComponent<AnimationController>();
+    }
+    
+This is how the animation will be capable of **calling** the **PlayAnimation** function from the AnimationController script (AnimationController is further down).
+
+In the Scoping method write the following:
 
     void Scoping()
     {
         if (Input.GetButtonDown("Fire2"))
         {
             isScoped = !isScoped;
-            scopeAnimator.SetBool("Scoped", isScoped);
+            animator.PlayAnimation();
             
             if (isScoped)
             {
@@ -63,7 +74,7 @@ If you notice at the start of the **GetButtonDown** if statement, there's an int
 
 In the referenced **scopeAnimator** variable, the isScoped bool is equal to **true**, because the code goes from **top to bottom** and at the very top of the code, the isScoped has a value of **false** and right before the code gets to the scopeAnimator variable, the value of isScoped is changed to **true**.
 
-### OnScope
+#### OnScope
 
 The Coroutine for the **OnScope** method is what is responsible for the delay before the scope's UI overley is displayed, but the animation is not delayed as it starts imediately before the Coroutine is called in the if statement.
 
@@ -88,7 +99,7 @@ The **scopeOverlayDelay** float variable is what will change the delay between w
 
 Do not worry about the weapons still being visible while zooming in, the 2 camera GameObjects can take care of it on their own.
 
-### Unscope
+#### Unscope
 
 The UnScope method is what puts everything back to the way everything was before you started zooming in through the scope by turning off the crosshair UI Image and what returns the camera's zoom distance back to it's original position through the normalFOV float vairable.
 
@@ -104,7 +115,37 @@ Make sure the following is included in the UnScope method.
 
 Remember that the GameObjects being set to true or false. If it's set to true, it's visible and if it's set to false, it's invisible. As well as the **normalFOV** float variable, as this will move the main camera's field of view back and forth when you press the right mouse button to zoom out.
 
+### Animation Controller
+
+Now crearte another scipr and name it Animation Controller and write a **public Animator** vairable and a **private script reference** variable to the **WeaponScope** script. By now, what you've written should look like this: 
+
+    public Animator scopeAnimator;
+    
+    WeaponScope scope;
+
+**This script controls the animations of the weapon**.
+
+Now **delete** the **Start** and **Update** functions and create an **Awake** method, then write the relevant so it looks like this:
+
+    void Awake()
+    {
+        scope = GetComponent<WeaponScope>();
+    }
+
+#### PlayAnimation
+
+Below the Awake function create a **public** function called PlayAnimation underneath the Awake method and write the following:
+
+    public void PlayAnimation()
+    {
+        scopeAnimator.SetBool("Scoped", scope.isScoped);
+    }
+
+If you're written these correctly, your animation should play without any issues when the other bits are finished.
+
 ## Readying the Other Assets for the Script
+
+This is what you need to do to make sure the script has something to work with.
 
 ### Weapon Holder (GameObject)
 
@@ -167,3 +208,5 @@ If you've done everything correctly, you should not encounter any problems. If y
 This script does not comtain any movement aspects, but it should work fine on other game objects that do contain movement in it. Whether it's the camera or the character itself.
 
 If any GameObject other than the Weapons Holder is containg the Weapons layer, they too will not be rendered when zoomed in. To fix this, simply change their layers. 
+
+**IMPORTANT:** Referencing the other scripts from the awake functions are **paramount**, because if they are not included, they will not be able to work together.
