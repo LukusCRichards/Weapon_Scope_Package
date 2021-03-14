@@ -199,7 +199,7 @@ Now whenever you get close to an obstacle, it will not longer clip through it be
 
 ## Combining Everything
 
-Once you've done everything, all you need to do is to put everything to its corresponding slots. The Weapon Camera and Main Camera goes in their corresponding slots, along with the Scope Overlay GameObject. The Weapon Holder Animator Controller goes into the Scope Animator slot.
+Once you've done everything, all you need to do is to put everything to its corresponding slots. The Weapon Camera and Main Camera goes in their corresponding slots, along with the Scope Overlay GameObject. The Weapon Holder Animator Controller goes into the Scope Animator slot in the Animation Controller script Component.
 
 If you've done everything correctly, you should not encounter any problems. If you feel like the scope Overlay is taking too long to appear or appearing too quickly, simply change the value of the Scope Overlay Delay.
 
